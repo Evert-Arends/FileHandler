@@ -6,39 +6,29 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LoginModule
+namespace Testapp
 {
     class FileHandler
     {
         //Name = Filename (no extension!!), text = text for textfile, extension is file extention (example ".txt").
         //Set Encryption default to false. Unless you use DataEncryptor.cs (Copyed from so).
-        public void writeToFile(string name, string text, string extension, Boolean encryption)
+        public string writeToFile(string name, string text, string extension, Boolean encryption)
         {
-           if(name == string.Empty || text == string.Empty || extension == string.Empty){
-                name = "Error";
-                text = "No value given...";
-                extension = ".txt";
+            if (name == string.Empty || text == string.Empty || extension == string.Empty)
+            {
+                return "1";
             }
             // Create a file to write to. 
-            if(encryption == true)
+            if (encryption)
             {
                 text = encrypt(text);
-                write(name, text, extension);
-
-                //TO DECRYPT:
-                //string actual=keys.DecryptString(encr);
             }
-            else
-            {
-                write(name, text, extension);
-            }
+            write(name, text, extension);
+            return "0";
         }
         private string encrypt(string text)
         {
-            DataEncryptor keys = new DataEncryptor();
-            string encr = keys.EncryptString(text);
-            return text = encr;
-
+            return text += " This should be encrypted.";
         }
         private void write(string name, string text, string extension)
         {
